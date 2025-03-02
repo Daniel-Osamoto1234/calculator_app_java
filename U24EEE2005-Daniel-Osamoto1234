@@ -1,25 +1,150 @@
+```
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.*;
 
-<!--
-    Copyright (c) 2023, Oracle and/or its affiliates.
+public class Calculator implements ActionListener {
 
-    Licensed to the Apache Software Foundation (ASF) under one
-    or more contributor license agreements.  See the NOTICE file
-    distributed with this work for additional information
-    regarding copyright ownership.  The ASF licenses this file
-    to you under the Apache License, Version 2.0 (the
-    "License"); you may not use this file except in compliance
-    with the License.  You may obtain a copy of the License at
+    JFrame frame;
+    JTextField textField;
+    JButton[] numberButtons = new JButton[10];
+    JButton addButton, subtractButton, multiplyButton, divideButton, equalButton, clearButton;
 
-      http://www.apache.org/licenses/LICENSE-2.0
+    Font font = new Font("Arial", Font.BOLD, 20);
 
-    Unless required by applicable law or agreed to in writing,
-    software distributed under the License is distributed on an
-    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
-    KIND, either express or implied.  See the License for the
-    specific language governing permissions and limitations
-    under the License.
+    double number1, number2, result;
+    char operation;
 
--->
+    public Calculator() {
+        createGUI();
+    }
+
+    public void createGUI() {
+        frame = new JFrame("Calculator");
+        frame.setSize(300, 400);
+        frame.setLayout(null);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+        textField = new JTextField();
+        textField.setBounds(20, 20, 250, 40);
+        textField.setFont(font);
+        frame.add(textField);
+
+        for (int i = 0; i < 10; i++) {
+            numberButtons[i] = new JButton(String.valueOf(i));
+            numberButtons[i].addActionListener(this);
+            numberButtons[i].setFont(font);
+        }
+
+        addButton = new JButton("+");
+        subtractButton = new JButton("-");
+        multiplyButton = new JButton("*");
+        divideButton = new JButton("/");
+        equalButton = new JButton("=");
+        clearButton = new JButton("C");
+
+        addButton.addActionListener(this);
+        subtractButton.addActionListener(this);
+        multiplyButton.addActionListener(this);
+        divideButton.addActionListener(this);
+        equalButton.addActionListener(this);
+        clearButton.addActionListener(this);
+
+        addButton.setFont(font);
+        subtractButton.setFont(font);
+        multiplyButton.setFont(font);
+        divideButton.setFont(font);
+        equalButton.setFont(font);
+        clearButton.setFont(font);
+
+        frame.add(addButton);
+        frame.add(subtractButton);
+        frame.add(multiplyButton);
+        frame.add(divideButton);
+        frame.add(equalButton);
+        frame.add(clearButton);
+
+        frame.add(numberButtons[0]);
+        frame.add(numberButtons[1]);
+        frame.add(numberButtons[2]);
+        frame.add(numberButtons[3]);
+        frame.add(numberButtons[4]);
+        frame.add(numberButtons[5]);
+        frame.add(numberButtons[6]);
+        frame.add(numberButtons[7]);
+        frame.add(numberButtons[8]);
+        frame.add(numberButtons[9]);
+
+        addButton.setBounds(20, 70, 50, 40);
+        subtractButton.setBounds(80, 70, 50, 40);
+        multiplyButton.setBounds(140, 70, 50, 40);
+        divideButton.setBounds(200, 70, 50, 40);
+        equalButton.setBounds(260, 70, 50, 40);
+
+        clearButton.setBounds(20, 120, 100, 40);
+
+        numberButtons[7].setBounds(20, 170, 50, 40);
+        numberButtons[8].setBounds(80, 170, 50, 40);
+        numberButtons[9].setBounds(140, 170, 50, 40);
+
+        numberButtons[4].setBounds(20, 220, 50, 40);
+        numberButtons[5].setBounds(80, 220, 50, 40);
+        numberButtons[6].setBounds(140, 220, 50, 40);
+
+        numberButtons[1].setBounds(20, 270, 50, 40);
+        numberButtons[2].setBounds(80, 270, 50, 40);
+        numberButtons[3].setBounds(140, 270, 50, 40);
+
+        numberButtons[0].setBounds(80, 320, 50, 40);
+
+        frame.setVisible(true);
+    }
+
+    public void actionPerformed(ActionEvent e) {
+        for (int i = 0; i < 10; i++) {
+            if (e.getSource() == numberButtons[i]) {
+                textField.setText(textField.getText() + i);
+            }
+        }
+
+        if (e.getSource() == addButton) {
+            number1 = Double.parseDouble(textField.getText());
+            operation = '+';
+            textField.setText("");
+        }
+
+        if (e.getSource() == subtractButton) {
+            number1 = Double.parseDouble(textField.getText());
+            operation = '-';
+            textField.setText("");
+        }
+
+        if (e.getSource() == multiplyButton) {
+            number1 = Double.parseDouble(textField.getText());
+            operation = '*';
+            textField.setText("");
+        }
+
+        if (e.getSource() == divideButton) {
+            number1 = Double.parseDouble(textField.getText());
+            operation = '/';
+            textField.setText("");
+        }
+
+        if (e.getSource() == equalButton) {
+            number2 = Double.parseDouble(textField.getText());
+
+            switch (operation) {
+                case '+':
+                    result = number1 + number2;
+                    break;
+                case '-':
+                    result = number1 - number2;
+                    break;
+                case '*':
+                    result = number1 * number
+```
+<
 
 <!-- This file has been modified for Oracle Java Platform extension -->
 # Assigment Instructions
@@ -34,58 +159,7 @@
 Java Platform extension from Oracle brings full featured development support (edit-compile-debug & test cycle) to VS Code. It also offers support for Maven and Gradle projects. Applications using JDK 8 and above are supported.
 ## Getting Started
 1. Setting up the JDK
-    - If no JDK is present in your system then the extension can set things up for you. For more details refer to [JDK Downloader](#jdk-downloader) section.
-    - Set the JDK in the `View | Command Palette | Preferences: Open User Settings | Jdk: Jdkhome` setting to point to the JDK that the Language Server will run on and also by default use for running and compiling projects.
-        - The extension requires JDK 17 or newer to run.
-    - Optionally, set a different JDK to compile and run projects in the `View | Command Palette | Preferences: Open User Settings | Jdk › Project: Jdkhome` setting.
-        - By default, the __jdk.jdkhome__ setting is used. 
-        - Projects can run on JDK 8 and above.  
-    - For more information, see the section [Selecting the JDK](#selecting-the-jdk).
-4. Use any one of the following ways to start coding, compiling and debugging in Java.
-    - Simply create a new Java class with `public static void main(String[] args)` method.
-    - Use the __Java: New File from Template...__ command to create a new Java file.
-    - Use the __Java: New Project...__ command to create a new project.
-    - Open the folder with existing __Maven__ or __Gradle__ project files (_pom.xml_ or _build.gradle, gradle.properties_).
-
-## Supported Actions
-In the VS Code command palette :
-* __Java: New Project...__ allows creation of new Maven or Gradle project 
-* __Java: New File from Template...__ add various files to currently selected open project. Files are:
-    * Java - broad selection of various predefined Java classes
-    * Unit tests - JUnit and TestNG templates for test suites and test cases
-    * Other - various templates for Javascript, JSON, YAML, properties, ... files
-* __Java: Compile Workspace__ - invoke Maven or Gradle build
-* __Java: Clean Workspace__ - clean Maven or Gradle build
-* __Download, install and Use JDK__ - allows download and installation of JDK binaries 
-* Debugger __Java+...__ - start main class or test on selected JDK. More in [Debugger section](#debugger-and-launch-configurations)
-* __Test Explorer__ for Java tests results visualization and execution including editor code Lenses.
-* Maven and Gradle support including multi-project projects, subprojects opening and Gradle priming builds.
-* __Java: Go To Test/Tested Class__ - Navigates to the corresponding test or source class file
-
-## Project Explorer
-Project Explorer provides an overview of logical project structure, groups sources together and greatly simplifies Java package structure exploration. Project Explorer is an addition to the classical workspace explorer. Use it to build, test, execute and operate your Maven and Gradle Java projects.  
-![Project Explorer](vscode/images/project-explorer.png)
-
-## Debugger and Launch Configurations
-Language Server __Java+ ...__ launch configuration supports debugging and running Java applications using JDK11 or newer. 
-1. The launch configuration (debugger) is invoked when `Run main | Debug main` code lense is selected in the code.
-2. Or __Java+...__ is selected in __Run and Debug__ activity panel.  
-![Debug configurations](vscode/images/debuggers.png)
-### Launch Configurations
-* __Launch Java App__ - Debug or Run current Java project
-* __Attach to Port__ & __Attach to Process__ - Attach debugger actions. Available when __Java+ ...__ at the bottom of drop down list is selected.
-    * Select this configuration, then click the ![Run](vscode/images/run.png) 
-    * Select either from available process or enter the port to connect to JVM running with JDWP.
-    * __Attach to Shared Memory__ is available on Windows in addtion to above mentioned _Attach..._
-
-Default launch configurations provided by Language Server can modified in `launch.json` file.
-
-### Run Configurations panel
-Program arguments, VM options, evironment variables,... can be set in Run Configuration panel a part of Explorer. The panel is sufficient for all typical use-cases Java programmer faces. Only advanced, expert scenarios may require touching of `launch.json` (which still takes precedence).  
-![Run Configuration](vscode/images/run_config.png) 
-
-## JDK Downloader
-If the system does not detect any JDK, the extension will offer a downloader and setup prompt to help you set up a JDK. This setup provides options for Oracle JDK, OpenJDK, and allows you to choose from any installed JDK on your system.
+    - If no JDK is present in your system then the extension can set thingsprovides options for Oracle JDK, OpenJDK, and allows you to choose from any installed JDK on your system.
 Alternatively, you can manually specify the path to JDK binaries by utilizing the JDK downloader.
 You can also access the JDK downloader through the "Download, install, and Use JDK" option in the command palette.  
 ![JDK Downloader](vscode/images/jdk_downloader.png) 
@@ -195,27 +269,7 @@ Step-2: Set the JDK in `View | Command Palette | Preferences:Open User Settings 
 If your extension is not starting and throwing some error like no JDK found even if you have a working JDK installed in your machine, then you can try deleting cache for the workspace using `View | Command Palette | Delete oracle java extension cache for this workspace`. 
 
 ## Workspace
-The extension will analyze the content of the opened workspace, and relevant other files. If the workspace contains a lot of data, this may take a long time. It is therefore recommended to avoid adding unnecessarily big folders in a workspace. Specifically, it is not recommended to open user's home directory as a part of the workspace.
-
-## Known Issue
-If an action has been applied to the Maven `pom.xml` file through the extension, such as enabling a preview feature or adding a test runner framework, subsequent compile or run operations may fail. To resolve this issue, please follow the steps below:
-1. Check the `pom.xml` file for any duplicated tags.
-2. If duplicated tags are found, remove the extra tags and attempt to compile again.
-
-## Contributing
-
-This project welcomes contributions from the community. Before submitting a pull request, please [review our contribution guide](./CONTRIBUTING.md)
-
-## Security
-
-Please consult the [security guide](https://github.com/oracle/javavscode/blob/main/SECURITY.md) for our responsible security vulnerability disclosure process
-
-## License
-
-Copyright (c) 2024 Oracle and/or its affiliates.
-
-Oracle Java Platform Extension for Visual Studio Code is licensed under [Apache 2.0 License](https://github.com/oracle/javavscode/blob/main/LICENSE.txt). 
-The [THIRD_PARTY_LICENSES](https://github.com/oracle/javavscode/blob/main/THIRD_PARTY_LICENSES.txt) file contains third party notices and licenses.
+The extension will analyze the content of the opened workspace, and relevant other files. If the workspace contains a lnotices and licenses.
 
 
 
