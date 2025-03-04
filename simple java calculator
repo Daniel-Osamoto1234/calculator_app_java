@@ -1,0 +1,47 @@
+
+importjavax.swing.*;
+importjava.awt.*;
+importjava.awt.event.*;
+
+    public class ButtonPressingCalculator{
+        private JFrame frame;
+        private JTextField textField;
+        private int count=0;
+        
+        public ButtonPressingCalculator()
+        {
+            create GUI();
+        }  
+    public void create GUI(){
+        frame=new JFrame("ButtonPresssingCalculator");
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setLayout(newFlowLayout());
+        
+        textField=new JField(10);
+        textField.setEditable(false);
+        
+        jButton button=new
+      jButton("Press me!");
+        button.addActionListener(newButtonListener());
+        
+        frame.add(textField);
+        frame.add(button);
+        
+        frame.pack();
+        frame.setVisible(true);
+     } 
+     private class ButtonListener implements ActionListener{
+         public void actionPerformed(ActionEvent e){
+             count++;
+             textField.setText(" Buttonpressed "+ count" times ");
+         }
+     }
+        
+        public static void main(String[]args){
+            SwingUtilities.invokeLater(newRunnable() }
+                public void run()
+        }
+                    new ButtonPressingCalculator();
+            })
+    }
+}
